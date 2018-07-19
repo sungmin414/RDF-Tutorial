@@ -4,8 +4,13 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 
-from .serializers import SnippetSerializer
-from .models import Snippet
+from ..serializers import SnippetSerializer
+from ..models import Snippet
+
+__all__=(
+    'snippet_list',
+    'snippet_detail',
+)
 
 
 class JSONResponse(HttpResponse):
@@ -56,7 +61,7 @@ def snippet_detail(request, pk):
 
     elif request.method == 'PATCH':
         data = JSONParser().parse(request)
-        serializer = SnippetSerializer(snippet, partial=True)
+        serializer = SnippetSerializer(snippet, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return JSONResponse(serializer.data)

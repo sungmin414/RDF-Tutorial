@@ -5,4 +5,5 @@ app_name='snippets'
 
 urlpatterns = [
     path('django_view/', include('snippets.urls.django_view')),
+    path('api_view/', include('snippets.urls.api_view'))
 ]
